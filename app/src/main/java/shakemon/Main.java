@@ -5,11 +5,19 @@ package shakemon;
 
 import io.javalin.Javalin;
 import shakemon.api.HttpHandlers;
+import shakemon.pokemon.PokemonDescriptions;
+import shakemon.translation.Translate;
 
 public class Main {
     public static void main(String[] args) {
         var app = Javalin.create().start(7000);
-        var handlers = new HttpHandlers();
+        var handlers = new HttpHandlers(dependencies());
         handlers.register(app);
+    }
+
+    private static TranslatePokemonDescription dependencies() {
+        return new TranslatePokemonDescription(
+                PokemonDescriptions.Fake.alwaysReturning("best pokemon"),
+                Translate.Fake.prependingToDescription("Pretend it is Shakesperean: "));
     }
 }

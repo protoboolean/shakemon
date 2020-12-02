@@ -27,7 +27,7 @@ public class TranslatePokemonDescription {
         }
     }
 
-    static class TranslatePokemonDescriptionException extends Exception {
+    public static class TranslatePokemonDescriptionException extends Exception {
         public TranslatePokemonDescriptionException(Throwable cause) {
             super(cause);
         }

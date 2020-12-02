@@ -13,13 +13,13 @@ No I/O adapters.
 ## Iteration 2
 
 Let each collaborator throw a domain-specific exception and test it's handled:
-* second collaborator in the chain is not called if first fails
-* an exception is thrown in turn
+* second collaborator in the chain should not be called if first fails
+* a use-case exception wrapping any of the collaborators exceptions should be rethrown
 
-Still, no I/O adapters.
+With this the basically nonexistent core-domain logic is done.
+
+No I/O adapters.
 
 ## Iteration 3
 
-I've implemented the (basically nonexistent) core-domain logic.
-
-Now I'm going to implement its own API to start implementing integration testing.
+Now I'm going to start implementing its own API.
