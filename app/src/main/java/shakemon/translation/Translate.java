@@ -23,8 +23,8 @@ public interface Translate {
             return delegate.toShakesperean(description);
         }
 
-        public int invocationsCount() {
-            return invocationCounts;
+        public boolean wasInvoked() {
+            return invocationCounts > 0;
         }
 
         public void resetCounter() {

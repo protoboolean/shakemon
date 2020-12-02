@@ -1,7 +1,13 @@
 package shakemon.pokemon;
 
 public interface PokemonDescriptions {
-    PokemonDescription pokemonDescription(PokemonName name);
+    PokemonDescription pokemonDescription(PokemonName name) throws PokemonDescriptionsException;
+
+    class PokemonDescriptionsException extends Exception {
+        public PokemonDescriptionsException(String message) {
+            super(message);
+        }
+    }
 
     class Fake implements PokemonDescriptions {
         private final PokemonDescriptions delegate;
@@ -14,8 +20,14 @@ public interface PokemonDescriptions {
             return new Fake((anyPokemonName) -> new PokemonDescription(description));
         }
 
+        public static Fake throwingException() {
+            return new Fake((anyPokemonName) -> {
+                throw new PokemonDescriptionsException("some error");
+            });
+        }
+
         @Override
-        public PokemonDescription pokemonDescription(PokemonName name) {
+        public PokemonDescription pokemonDescription(PokemonName name) throws PokemonDescriptionsException {
             return delegate.pokemonDescription(name);
         }
     }
