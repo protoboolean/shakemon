@@ -3,12 +3,20 @@ package shakemon.pokemon;
 public interface PokemonDescriptions {
     PokemonDescription pokemonDescription(PokemonName name);
 
-    class Fakes {
-        private Fakes() {
+    class Fake implements PokemonDescriptions {
+        private final PokemonDescriptions delegate;
+
+        private Fake(PokemonDescriptions delegate) {
+            this.delegate = delegate;
         }
 
-        public static PokemonDescriptions alwaysReturning(String description) {
-            return (anyPokemonName) -> new PokemonDescription(description);
+        public static Fake alwaysReturning(String description) {
+            return new Fake((anyPokemonName) -> new PokemonDescription(description));
+        }
+
+        @Override
+        public PokemonDescription pokemonDescription(PokemonName name) {
+            return delegate.pokemonDescription(name);
         }
     }
 }
