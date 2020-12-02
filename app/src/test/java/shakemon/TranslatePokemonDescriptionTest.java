@@ -6,7 +6,6 @@ import shakemon.TranslatePokemonDescription.TranslatePokemonDescriptionException
 import shakemon.pokemon.PokemonDescriptions;
 import shakemon.pokemon.PokemonDescriptions.PokemonDescriptionsException;
 import shakemon.pokemon.PokemonName;
-import shakemon.translation.Shakesperean;
 import shakemon.translation.Translate;
 import shakemon.translation.Translate.TranslateException;
 
@@ -23,8 +22,8 @@ class TranslatePokemonDescriptionTest {
 
     @Test
     void translate_pokemon_description_to_Shakespearean() throws TranslatePokemonDescriptionException {
-        TranslatePokemonDescription useCase = new TranslatePokemonDescription(descriptions, translate);
-        Shakesperean translation = useCase.shakespereanDescription(new PokemonName("any"));
+        var useCase = new TranslatePokemonDescription(descriptions, translate);
+        var translation = useCase.shakespereanDescription(new PokemonName("any"));
 
         assertEquals(translation.asString(), "not really Shakespearean: best pokemon");
     }
@@ -33,8 +32,8 @@ class TranslatePokemonDescriptionTest {
     void pokemon_descriptions_throws_an_exception() {
         PokemonDescriptions descriptions = PokemonDescriptions.Fake.throwingException();
 
-        TranslatePokemonDescription useCase = new TranslatePokemonDescription(descriptions, translate);
-        TranslatePokemonDescriptionException tpde = assertThrows(TranslatePokemonDescriptionException.class, () ->
+        var useCase = new TranslatePokemonDescription(descriptions, translate);
+        var tpde = assertThrows(TranslatePokemonDescriptionException.class, () ->
                 useCase.shakespereanDescription(new PokemonName("any")));
         assertEquals(tpde.getCause().getClass(), PokemonDescriptionsException.class);
 
@@ -43,10 +42,10 @@ class TranslatePokemonDescriptionTest {
 
     @Test
     void translate_throws_an_exception() {
-        Translate.Fake translate = Translate.Fake.throwingException();
+        var translate = Translate.Fake.throwingException();
 
-        TranslatePokemonDescription useCase = new TranslatePokemonDescription(descriptions, translate);
-        TranslatePokemonDescriptionException tpde = assertThrows(TranslatePokemonDescriptionException.class, () ->
+        var useCase = new TranslatePokemonDescription(descriptions, translate);
+        var tpde = assertThrows(TranslatePokemonDescriptionException.class, () ->
                 useCase.shakespereanDescription(new PokemonName("any")));
         assertEquals(tpde.getCause().getClass(), TranslateException.class);
     }

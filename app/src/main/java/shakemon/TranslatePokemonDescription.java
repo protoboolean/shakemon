@@ -1,6 +1,5 @@
 package shakemon;
 
-import shakemon.pokemon.PokemonDescription;
 import shakemon.pokemon.PokemonDescriptions;
 import shakemon.pokemon.PokemonDescriptions.PokemonDescriptionsException;
 import shakemon.pokemon.PokemonName;
@@ -21,7 +20,7 @@ public class TranslatePokemonDescription {
 
     public Shakesperean shakespereanDescription(PokemonName name) throws TranslatePokemonDescriptionException {
         try {
-            PokemonDescription pokemonDescription = pokemonDescriptions.pokemonDescription(name);
+            var pokemonDescription = pokemonDescriptions.pokemonDescription(name);
             return translate.toShakesperean(pokemonDescription);
         } catch (PokemonDescriptionsException | TranslateException e) {
             throw new TranslatePokemonDescriptionException(e);
