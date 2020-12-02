@@ -1,0 +1,54 @@
+# Shakemon Requirements and Design
+
+## Functional Requirements
+
+Shakemon returns a translation in Shakesperean of a given pokemon description.
+ Pokemons will be identified by their common name and the implementation will delegate the job to two foreign APIs: one to resolve the standard english description, and the other to perform the translation.
+
+The two APIs are:
+
+* https://pokeapi.co/ to resolve the standard description by name
+* https://funtranslations.com/api/shakespeare to translate the description in shakesperian
+
+NOTE: more information about access restrictions to those APIs will be added in the "Non-Functional Requirement" section.
+
+## Non-Functional Requirements
+
+### Risk assessment
+
+1. Calling any API, and external ones especially, carries intrinsic risks:
+
+    * the foreign servers may be overloaded or down (therefore slow or unresponsive), we don't want to keep connections open with our client for _too long_
+    * their API might have changed or have bugs
+    * our request, which contains an input coming from outside which we can't fully validate (at least my assumption is that we don't want to keep a cache of all valid pokemon names), therefore might result in an invalid request for those services
+
+2. Exposing our API to the public carries risks of denial of service attacks, which we might inflict to our partners if we don't handle it
+
+### Failure Handling
+
+* respond with an appropriate error to our client should any of our partners fail to response (e.g. 404 if we get a pokemon not found, etc.)
+* log any error: initial implementation will simply log to stderr, ideally we want to funnel also direct logs into an aggregator (i.e. Graylog)
+
+### CI / CD Support
+
+Objective: make the final artifact runnable with different configuration so that it can be _wired_ appropriately in each local, test, and prod environments.
+
+#### Configuration options could include:
+
+1. foreign endpoint URLs
+2. fake foreign endpoints that can be used to simulate successful and unsuccessful requests
+3. access tokens (TODO: not sure if it's actually required)
+4. our HTTP port and base path
+
+### Monitoring / Observability
+
+We should: 
+1. expose a "ping" endpoint
+2. collect and report metrics for each endpoint (ours and foreign)
+
+### Performance
+
+We should not call the translator if the first failed to respond or responded with invalid text (i.e. empty description).
+
+The pokemon API seems a stateless service (constant pokemon_name -> description mapping). It might be worth to consider caching locally the Pokemon descriptions.
+
