@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TranslatePokemonDescriptionTest {
-    PokemonDescriptions descriptions = PokemonDescriptions.Fakes.alwaysReturning("best pokemon");
-    Translate translate = Translate.Fakes.prependingToDescription("not really shakespeare: ");
+    PokemonDescriptions descriptions = PokemonDescriptions.Fake.alwaysReturning("best pokemon");
+    Translate translate = Translate.Fake.prependingToDescription("not really shakespeare: ");
 
     @Test
     void translate_pokemon_description_to_shakesperean() {
