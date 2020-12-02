@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TranslateTest {
     @Test
     void fake_returning_prefixed_description() {
-        Translate translate = Translate.Fakes.prependingToDescription("Some Marker: ");
+        Translate translate = Translate.Fakes.prependingToDescription("not really shakespeare: ");
         Shakesperean shakesperean = translate.toShakesperean(new PokemonDescription("the best pokemon"));
-        assertEquals(shakesperean.asString(), "Some Marker: the best pokemon");
+        assertEquals(shakesperean.asString(), "not really shakespeare: the best pokemon");
     }
 }
