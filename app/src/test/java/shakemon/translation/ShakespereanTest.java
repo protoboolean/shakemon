@@ -1,4 +1,4 @@
-package shakemon.translatorapi;
+package shakemon.translation;
 
 import org.junit.jupiter.api.Test;
 

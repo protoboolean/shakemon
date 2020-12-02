@@ -1,6 +1,6 @@
-package shakemon.translatorapi;
+package shakemon.translation;
 
-import shakemon.pokeapi.PokemonDescription;
+import shakemon.pokemon.PokemonDescription;
 
 public interface Translate {
     Shakesperean toShakesperean(PokemonDescription description);

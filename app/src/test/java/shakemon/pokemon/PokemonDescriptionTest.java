@@ -1,4 +1,4 @@
-package shakemon.pokeapi;
+package shakemon.pokemon;
 
 import org.junit.jupiter.api.Test;
 

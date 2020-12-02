@@ -1,4 +1,4 @@
-package shakemon.pokeapi;
+package shakemon.pokemon;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static org.apache.commons.lang3.StringUtils.isBlank;

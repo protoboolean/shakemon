@@ -1,4 +1,4 @@
-package shakemon.translatorapi;
+package shakemon.translation;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static org.apache.commons.lang3.StringUtils.isBlank;

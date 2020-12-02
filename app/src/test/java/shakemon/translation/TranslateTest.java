@@ -1,7 +1,7 @@
-package shakemon.translatorapi;
+package shakemon.translation;
 
 import org.junit.jupiter.api.Test;
-import shakemon.pokeapi.PokemonDescription;
+import shakemon.pokemon.PokemonDescription;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
