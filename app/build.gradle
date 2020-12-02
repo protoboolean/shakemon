@@ -26,12 +26,15 @@ dependencies {
     // This dependency is used by the application.
     implementation 'org.apache.commons:commons-lang3:3.11'
     implementation 'com.google.guava:guava:29.0-jre'
-    compile "io.javalin:javalin:3.12.0"
+    implementation 'io.javalin:javalin:3.12.0'
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.10.3"
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+    implementation 'org.slf4j:slf4j-simple:1.7.30'
 }
 
 application {
     // Define the main class for the application.
-    mainClass = 'shakemon.App'
+    mainClass = 'shakemon.Main'
 }
 
 tasks.named('test') {
