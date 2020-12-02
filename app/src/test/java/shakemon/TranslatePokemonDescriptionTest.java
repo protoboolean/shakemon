@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TranslatePokemonDescriptionTest {
     PokemonDescriptions descriptions = PokemonDescriptions.Fake.alwaysReturning("best pokemon");
-    Translate.Fake translate = Translate.Fake.prependingToDescription("not really shakespeare: ");
+    Translate.Fake translate = Translate.Fake.prependingToDescription("not really Shakespearean: ");
 
     @AfterEach
     void cleanup() {
@@ -25,7 +25,7 @@ class TranslatePokemonDescriptionTest {
         TranslatePokemonDescription useCase = new TranslatePokemonDescription(descriptions, translate);
         Shakesperean translation = useCase.shakespereanDescription(new PokemonName("any"));
 
-        assertEquals(translation.asString(), "not really shakespeare: best pokemon");
+        assertEquals(translation.asString(), "not really Shakespearean: best pokemon");
     }
 
     @Test
