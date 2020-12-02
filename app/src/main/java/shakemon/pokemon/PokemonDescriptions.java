@@ -1,7 +1,7 @@
 package shakemon.pokemon;
 
 public interface PokemonDescriptions {
-    PokemonDescription pokemonDescription(String name);
+    PokemonDescription pokemonDescription(PokemonName name);
 
     class Fakes {
         private Fakes() {

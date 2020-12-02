@@ -9,7 +9,9 @@ class PokemonDescriptionsTest {
     public void fake_api_returning_constant_description() {
         String someDescription = "the best pokemon";
         PokemonDescriptions api = PokemonDescriptions.Fakes.alwaysReturning(someDescription);
-        PokemonDescription description = api.pokemonDescription("any");
+
+        PokemonName name = new PokemonName("any");
+        PokemonDescription description = api.pokemonDescription(name);
         assertEquals(description.asString(), someDescription);
     }
 }
