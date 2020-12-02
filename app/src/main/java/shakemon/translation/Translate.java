@@ -3,7 +3,13 @@ package shakemon.translation;
 import shakemon.pokemon.PokemonDescription;
 
 public interface Translate {
-    Shakesperean toShakesperean(PokemonDescription description);
+    Shakesperean toShakesperean(PokemonDescription description) throws TranslateException;
+
+    class TranslateException extends Exception {
+        public TranslateException(String message) {
+            super(message);
+        }
+    }
 
     class Fake implements Translate {
         private int invocationCounts = 0;
@@ -17,8 +23,14 @@ public interface Translate {
             return new Fake(description -> new Shakesperean(prefix + description.asString()));
         }
 
+        public static Fake throwingException() {
+            return new Fake(description -> {
+                throw new TranslateException("some exception");
+            });
+        }
+
         @Override
-        public Shakesperean toShakesperean(PokemonDescription description) {
+        public Shakesperean toShakesperean(PokemonDescription description) throws TranslateException {
             invocationCounts += 1;
             return delegate.toShakesperean(description);
         }

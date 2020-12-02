@@ -2,9 +2,11 @@ package shakemon;
 
 import shakemon.pokemon.PokemonDescription;
 import shakemon.pokemon.PokemonDescriptions;
+import shakemon.pokemon.PokemonDescriptions.PokemonDescriptionsException;
 import shakemon.pokemon.PokemonName;
 import shakemon.translation.Shakesperean;
 import shakemon.translation.Translate;
+import shakemon.translation.Translate.TranslateException;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -21,12 +23,12 @@ public class TranslatePokemonDescription {
         try {
             PokemonDescription pokemonDescription = pokemonDescriptions.pokemonDescription(name);
             return translate.toShakesperean(pokemonDescription);
-        } catch (PokemonDescriptions.PokemonDescriptionsException e) {
+        } catch (PokemonDescriptionsException | TranslateException e) {
             throw new TranslatePokemonDescriptionException(e);
         }
     }
 
-    class TranslatePokemonDescriptionException extends Exception {
+    static class TranslatePokemonDescriptionException extends Exception {
         public TranslatePokemonDescriptionException(Throwable cause) {
             super(cause);
         }

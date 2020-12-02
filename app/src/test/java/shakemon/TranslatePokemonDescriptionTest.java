@@ -8,6 +8,7 @@ import shakemon.pokemon.PokemonDescriptions.PokemonDescriptionsException;
 import shakemon.pokemon.PokemonName;
 import shakemon.translation.Shakesperean;
 import shakemon.translation.Translate;
+import shakemon.translation.Translate.TranslateException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,6 +39,16 @@ class TranslatePokemonDescriptionTest {
         assertEquals(tpde.getCause().getClass(), PokemonDescriptionsException.class);
 
         assertFalse(translate.wasInvoked(), "translation was invoked");
+    }
+
+    @Test
+    void translate_throws_an_exception() {
+        Translate.Fake translate = Translate.Fake.throwingException();
+
+        TranslatePokemonDescription useCase = new TranslatePokemonDescription(descriptions, translate);
+        TranslatePokemonDescriptionException tpde = assertThrows(TranslatePokemonDescriptionException.class, () ->
+                useCase.shakespereanDescription(new PokemonName("any")));
+        assertEquals(tpde.getCause().getClass(), TranslateException.class);
     }
 
     @Test
