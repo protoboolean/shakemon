@@ -9,7 +9,7 @@ import shakemon.pokemon.PokemonName;
 import shakemon.translation.Translate;
 import shakemon.translation.Translate.TranslateException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 class TranslatePokemonDescriptionTest {
     PokemonDescriptions descriptions = PokemonDescriptions.Fake.alwaysReturning("best pokemon");
@@ -25,7 +25,7 @@ class TranslatePokemonDescriptionTest {
         var useCase = new TranslatePokemonDescription(descriptions, translate);
         var translation = useCase.shakespereanDescription(new PokemonName("any"));
 
-        assertEquals(translation.asString(), "not really Shakespearean: best pokemon");
+        assertThat(translation.asString()).isEqualTo("not really Shakespearean: best pokemon");
     }
 
     @Test
@@ -33,11 +33,14 @@ class TranslatePokemonDescriptionTest {
         PokemonDescriptions descriptions = PokemonDescriptions.Fake.throwingException();
 
         var useCase = new TranslatePokemonDescription(descriptions, translate);
-        var tpde = assertThrows(TranslatePokemonDescriptionException.class, () ->
-                useCase.shakespereanDescription(new PokemonName("any")));
-        assertEquals(tpde.getCause().getClass(), PokemonDescriptionsException.class);
 
-        assertFalse(translate.wasInvoked(), "translation was invoked");
+        assertThatThrownBy(() -> useCase.shakespereanDescription(new PokemonName("any")))
+                .isInstanceOf(TranslatePokemonDescriptionException.class)
+                .hasCauseInstanceOf(PokemonDescriptionsException.class);
+
+        assertThat(translate.wasInvoked())
+                .describedAs("translation was invoked")
+                .isFalse();
     }
 
     @Test
@@ -45,15 +48,21 @@ class TranslatePokemonDescriptionTest {
         var translate = Translate.Fake.throwingException();
 
         var useCase = new TranslatePokemonDescription(descriptions, translate);
-        var tpde = assertThrows(TranslatePokemonDescriptionException.class, () ->
-                useCase.shakespereanDescription(new PokemonName("any")));
-        assertEquals(tpde.getCause().getClass(), TranslateException.class);
+
+        assertThatThrownBy(() -> useCase.shakespereanDescription(new PokemonName("any")))
+                .isInstanceOf(TranslatePokemonDescriptionException.class)
+                .hasCauseInstanceOf(TranslateException.class);
+
     }
 
     @Test
     void arguments_null_check() {
-        assertThrows(NullPointerException.class, () -> new TranslatePokemonDescription(null, translate), "null descriptions");
+        assertThatNullPointerException()
+                .describedAs("null descriptions")
+                .isThrownBy(() -> new TranslatePokemonDescription(null, translate));
 
-        assertThrows(NullPointerException.class, () -> new TranslatePokemonDescription(descriptions, null), "null descriptions");
+        assertThatNullPointerException()
+                .describedAs("null translate")
+                .isThrownBy(() -> new TranslatePokemonDescription(descriptions, null));
     }
 }

@@ -4,19 +4,23 @@ import org.junit.jupiter.api.Test;
 
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.apache.commons.lang3.StringUtils.SPACE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 class PokemonNameTest {
     @Test
     void returns_own_trimmed_value() {
-        assertEquals(new PokemonName(" ditto ").asString(), "ditto");
+        var name = new PokemonName(" ditto ");
+        assertThat(name.asString()).isEqualTo("ditto");
     }
 
     @Test
     void rejects_invalid_value() {
-        assertThrows(IllegalArgumentException.class, () -> new PokemonName(null), "null");
-        assertThrows(IllegalArgumentException.class, () -> new PokemonName(EMPTY), "empty");
-        assertThrows(IllegalArgumentException.class, () -> new PokemonName(SPACE), "space");
+        assertThatIllegalArgumentException().describedAs("null argument")
+                .isThrownBy(() -> new PokemonName(null));
+        assertThatIllegalArgumentException().describedAs("empty argument")
+                .isThrownBy(() -> new PokemonName(EMPTY));
+        assertThatIllegalArgumentException().describedAs("blank argument")
+                .isThrownBy(() -> new PokemonName(SPACE));
     }
 }

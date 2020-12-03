@@ -3,7 +3,7 @@ package shakemon.pokemon;
 import org.junit.jupiter.api.Test;
 import shakemon.pokemon.PokemonDescriptions.PokemonDescriptionsException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PokemonDescriptionsTest {
     @Test
@@ -13,6 +13,6 @@ class PokemonDescriptionsTest {
 
         var name = new PokemonName("any");
         var description = api.pokemonDescription(name);
-        assertEquals(description.asString(), someDescription);
+        assertThat(description.asString()).isEqualTo(someDescription);
     }
 }
