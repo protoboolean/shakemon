@@ -7,10 +7,12 @@ import shakemon.ShakemonConfig;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @EnabledIfEnvironmentVariable(named = "SHAKEMON_ALLOW_NETWORK_IO_TEST", matches = "true",
-        disabledReason = "Test Depends on External Service. Used for development only ATM.")
+        disabledReason = "Test depends on external services. Used for development only ATM.")
+@EnabledIfEnvironmentVariable(named = "SHAKEMON_CONFIG", matches = "file://.*",
+        disabledReason = "Test depends on external services. Used for development only ATM.")
 class PokeAPITest {
-    ShakemonConfig config = ShakemonConfig.load();
-    PokeAPI pokeAPI = new PokeAPI(config.pokeApiUrl());
+    static ShakemonConfig config = ShakemonConfig.load();
+    static PokeAPI pokeAPI = config.pokeApiUrl().map(PokeAPI::new).orElseThrow();
 
     @Test
     void pokemon_description__dev_only() throws PokemonDescriptionsException {

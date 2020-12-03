@@ -13,8 +13,8 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import static org.assertj.core.api.Assertions.assertThat;
 import static shakemon.Utils.resourceAsString;
 
-public class ApiTest {
-    static ShakemonConfig config = ShakemonConfig.load();
+public class ShakemonApiTest {
+    static ShakemonConfig config = ShakemonConfig.loadWithFakes();
     static Main main = new Main(config);
     static UnirestInstance adminApi = Unirest.spawnInstance();
     static UnirestInstance appApi = Unirest.spawnInstance();

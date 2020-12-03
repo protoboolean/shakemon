@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import shakemon.api.AdminEndpoints;
 import shakemon.api.AppEndpoints;
+import shakemon.pokemon.PokeAPI;
 import shakemon.pokemon.PokemonDescriptions;
 import shakemon.translation.Translate;
 
@@ -61,8 +62,15 @@ public class Main {
 
     private TranslatePokemonDescription dependencies() {
         return new TranslatePokemonDescription(
-                PokemonDescriptions.Fake.alwaysReturning("best pokemon"),
+                pokemonDescriptions(),
                 Translate.Fake.prependingToDescription("Pretend it is Shakesperean: "));
+    }
+
+    @NotNull
+    private PokemonDescriptions pokemonDescriptions() {
+        return config.pokeApiUrl()
+                .map((url) -> (PokemonDescriptions) new PokeAPI(url))
+                .orElseGet(() -> PokemonDescriptions.Fake.alwaysReturning("best pokemon"));
     }
 
 }
