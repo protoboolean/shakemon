@@ -38,3 +38,15 @@ to run the app with fake external dependencies.
 
 It will be possible to override the file via ENV variable pointing to a path
 on the file system.
+
+## Iteration 5
+
+Expose Monitoring/Metrics endpoint
+
+## Iteration 6
+
+Add logging configuration, add logging of ports and endpoints on start-up.
+
+## Iteration 7
+
+Start implementation of PokeAPI.
