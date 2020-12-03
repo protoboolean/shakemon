@@ -14,7 +14,7 @@ public class PokemonName {
     public PokemonName(String name) {
         checkArgument(!isBlank(name), "blank");
         checkArgument(VALID_PATTERN.matcher(name).matches(), "not ascii alphabetic");
-        this.name = name.trim();
+        this.name = name.trim().toLowerCase();
     }
 
     public String asString() {

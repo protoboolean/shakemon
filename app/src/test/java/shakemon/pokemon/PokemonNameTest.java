@@ -9,8 +9,8 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 
 class PokemonNameTest {
     @Test
-    void returns_own_trimmed_value() {
-        var name = new PokemonName(" ditto ");
+    void returns_own_normalized_value() {
+        var name = new PokemonName(" diTTo ");
         assertThat(name.asString()).isEqualTo("ditto");
     }
 
