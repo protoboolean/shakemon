@@ -1,9 +1,9 @@
 package shakemon.pokemon;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
-import static org.apache.commons.lang3.StringUtils.EMPTY;
-import static org.apache.commons.lang3.StringUtils.SPACE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
@@ -14,13 +14,11 @@ class PokemonNameTest {
         assertThat(name.asString()).isEqualTo("ditto");
     }
 
-    @Test
-    void rejects_invalid_value() {
-        assertThatIllegalArgumentException().describedAs("null argument")
-                .isThrownBy(() -> new PokemonName(null));
-        assertThatIllegalArgumentException().describedAs("empty argument")
-                .isThrownBy(() -> new PokemonName(EMPTY));
-        assertThatIllegalArgumentException().describedAs("blank argument")
-                .isThrownBy(() -> new PokemonName(SPACE));
+    @ParameterizedTest(name = "name \"{0}\" ({1}) raises an illegal-argument-exception")
+    @CsvFileSource(resources = "invalid_pokemon_names.csv", numLinesToSkip = 1)
+    void invalid_name(String value, String description) {
+        assertThatIllegalArgumentException().as(description)
+                .isThrownBy(() -> new PokemonName(value));
     }
+
 }
