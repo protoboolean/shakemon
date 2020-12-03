@@ -22,4 +22,19 @@ No I/O adapters.
 
 ## Iteration 3
 
-Now I'm going to start implementing its own API.
+Now I'm going to start implementing Shakemon own API.
+
+I've realized PokemonName should be only ascii alpha and that validation test
+is growing. I implement stricter rules and extract test fixtures in CSV file.
+I check a number of valid PokemonName variations raise no exception.
+
+## Iteration 4
+
+Extract configuration.
+
+I create a configuration file that will contain all properties available to 
+configure the app. Currently limited to the API port. The values should be valid
+to run the app with fake external dependencies.
+
+It will be possible to override the file via ENV variable pointing to a path
+on the file system.
