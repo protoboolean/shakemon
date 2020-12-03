@@ -11,33 +11,42 @@ class PokeAPIResponse {
     String name = "";
     Integer base_experience = 0;
     List<HeldItemElement> held_items = new ArrayList<>();
+    List<MoveElement> moves = new ArrayList<>();
 
-    String describe() {
+    String description() {
         return description
-                .append(StringUtils.capitalize(name))
-                .append(" experience level is ").append(base_experience)
-                .append(". ")
-                .append(new HeldItems(held_items).describe())
+                .append(capitalizedName())
+                .append(" experience level is ").append(base_experience).append(".")
+                .append(heldItemsDescription())
+                .append(movesDescription())
                 .toString();
     }
 
-    static class HeldItems {
-        private final StringBuilder description = new StringBuilder("This pokemon holds ");
+    private String capitalizedName() {
+        return StringUtils.capitalize(name);
+    }
 
-        private final List<HeldItemElement> held_items;
 
-        HeldItems(List<HeldItemElement> held_items) {
-            this.held_items = held_items;
+    StringBuilder heldItemsDescription() {
+        var description = new StringBuilder("This pokemon holds");
+        if (held_items.isEmpty()) {
+            return description.append(" no items.");
+        } else {
+            return description
+                    .append(held_items.size())
+                    .append(" items.");
         }
+    }
 
-        StringBuilder describe() {
-            if (held_items.isEmpty()) {
-                return description.append("no items.");
-            } else {
-                return description
-                        .append(held_items.size())
-                        .append(" items.");
-            }
+    StringBuilder movesDescription() {
+        var description = new StringBuilder(capitalizedName())
+                .append(" can make");
+        if (moves.isEmpty()) {
+            return description.append(" no moves.");
+        } else {
+            return description
+                    .append(moves.size())
+                    .append(" moves.");
         }
     }
 
@@ -47,5 +56,15 @@ class PokeAPIResponse {
 
     static class HeldItem {
         String name = "";
+        String url = "";
+    }
+
+    static class MoveElement {
+        Move move = new Move();
+    }
+
+    static class Move {
+        String name = "";
+        String url = "";
     }
 }

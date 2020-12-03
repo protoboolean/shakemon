@@ -13,9 +13,16 @@ class PokeAPITest {
     PokeAPI pokeAPI = new PokeAPI(config.pokeApiUrl());
 
     @Test
-    void fetch_pokemon() throws PokemonDescriptionsException {
+    void pokemon_description__dev_only() throws PokemonDescriptionsException {
         var name = new PokemonName("ditto");
         var description = pokeAPI.pokemonDescription(name).asString();
-        assertThat(description).contains("Ditto");
+        assertThat(description).containsIgnoringCase(name.asString());
+    }
+
+    @Test
+    void pokemon_json__dev_only() throws PokemonDescriptionsException {
+        var name = new PokemonName("ditto");
+        var json = pokeAPI.pokemonJson(name);
+        assertThat(json).isNotNull();
     }
 }
