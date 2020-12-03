@@ -15,11 +15,16 @@ class Config {
         return Integer.parseInt(properties.get("shakemon.port"));
     }
 
+    int adminPort() {
+        return Integer.parseInt(properties.get("shakemon.admin_port"));
+    }
+
     static Config load() {
         try {
             var properties = new Properties();
             var stream = Main.class.getResourceAsStream("config.properties");
             properties.load(stream);
+            //noinspection unchecked,rawtypes
             return new Config((Map) properties);
         } catch (IOException e) {
             throw new RuntimeException(e);

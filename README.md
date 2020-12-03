@@ -36,3 +36,9 @@ TODO: test git URL.
 A configuration file showing all available properties can be found in app/src/main/resources/shakemon/config
 .properties .
 Current values are defaults that are valid for integration testing using mock foreign-endpoints.
+
+## Metrics
+
+Available at http://localhost:7001/metrics
+
+* TIMER on `HTTP GET /pokemon/:name`
