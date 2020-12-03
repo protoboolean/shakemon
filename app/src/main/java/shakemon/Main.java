@@ -23,14 +23,14 @@ public class Main {
 
     final MetricRegistry metrics = new MetricRegistry();
 
-    private final Config config;
+    private final ShakemonConfig config;
 
-    public Main(Config config) {
+    public Main(ShakemonConfig config) {
         this.config = config;
     }
 
     public static void main(String[] args) {
-        new Main(Config.load()).run();
+        new Main(ShakemonConfig.load()).run();
     }
 
     public void run() {

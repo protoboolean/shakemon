@@ -10,10 +10,10 @@ import java.util.Properties;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-public class Config {
+public class ShakemonConfig {
     private final Map<String, String> properties;
 
-    private Config(Map<String, String> properties) {
+    private ShakemonConfig(Map<String, String> properties) {
         this.properties = properties;
     }
 
@@ -36,13 +36,13 @@ public class Config {
         }
     }
 
-    public static Config load() {
+    public static ShakemonConfig load() {
         try {
             var properties = new Properties();
             var stream = Main.class.getResourceAsStream("config.properties");
             properties.load(stream);
             //noinspection unchecked,rawtypes
-            return new Config((Map) properties);
+            return new ShakemonConfig((Map) properties);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

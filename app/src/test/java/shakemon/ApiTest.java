@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static shakemon.Utils.resourceAsString;
 
 public class ApiTest {
-    static Config config = Config.load();
+    static ShakemonConfig config = ShakemonConfig.load();
     static Main main = new Main(config);
     static UnirestInstance adminApi = Unirest.spawnInstance();
     static UnirestInstance appApi = Unirest.spawnInstance();
