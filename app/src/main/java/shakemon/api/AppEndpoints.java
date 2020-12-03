@@ -14,13 +14,13 @@ import shakemon.pokemon.PokemonName;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class HttpHandlers {
-    private static final Logger LOG = LoggerFactory.getLogger(HttpHandlers.class);
+public class AppEndpoints {
+    private static final Logger LOG = LoggerFactory.getLogger(AppEndpoints.class);
 
     private final TranslatePokemonDescription translatePokemonDescription;
     private final MetricRegistry metricRegistry;
 
-    public HttpHandlers(TranslatePokemonDescription translatePokemonDescription, MetricRegistry metricRegistry) {
+    public AppEndpoints(TranslatePokemonDescription translatePokemonDescription, MetricRegistry metricRegistry) {
         this.translatePokemonDescription = checkNotNull(translatePokemonDescription);
         this.metricRegistry = metricRegistry;
     }

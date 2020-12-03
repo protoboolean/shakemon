@@ -5,14 +5,13 @@ package shakemon;
 
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.json.MetricsModule;
-import com.google.common.net.MediaType;
 import io.javalin.Javalin;
 import io.javalin.plugin.json.JavalinJackson;
-import io.javalin.plugin.json.JavalinJson;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import shakemon.api.HttpHandlers;
+import shakemon.api.AdminEndpoints;
+import shakemon.api.AppEndpoints;
 import shakemon.pokemon.PokemonDescriptions;
 import shakemon.translation.Translate;
 
@@ -44,19 +43,14 @@ public class Main {
         var port = config.port();
         var app = Javalin.create().start(port);
         LOG.info("App listening on port: {}", port);
-        new HttpHandlers(dependencies(), metrics).register(app);
+        new AppEndpoints(dependencies(), metrics).register(app);
     }
 
     private void adminServer() {
         var port = config.adminPort();
-        LOG.info("Admin Service listening on port: {}", port);
         var admin = Javalin.create().start(port);
-        var path = "/metrics";
-        admin.get(path, (ctx) -> {
-            ctx.contentType(MediaType.JSON_UTF_8.type());
-            ctx.result(JavalinJson.toJson(metrics));
-        });
-        LOG.info("GET {}", path);
+        LOG.info("Admin Service listening on port: {}", port);
+        new AdminEndpoints(metrics).register(admin);
     }
 
     @NotNull
