@@ -10,12 +10,16 @@ import shakemon.translation.Translate;
 
 public class Main {
     public static void main(String[] args) {
+        new Main().run();
+    }
+
+    public void run() {
         var app = Javalin.create().start(7000);
         var handlers = new HttpHandlers(dependencies());
         handlers.register(app);
     }
 
-    private static TranslatePokemonDescription dependencies() {
+    private TranslatePokemonDescription dependencies() {
         return new TranslatePokemonDescription(
                 PokemonDescriptions.Fake.alwaysReturning("best pokemon"),
                 Translate.Fake.prependingToDescription("Pretend it is Shakesperean: "));
