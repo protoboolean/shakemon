@@ -33,4 +33,6 @@ TODO: test git URL.
 
 ## Configuration
 
-TODO
+A configuration file showing all available properties can be found in app/src/main/resources/shakemon/config
+.properties .
+Current values are defaults that are valid for integration testing using mock foreign-endpoints.

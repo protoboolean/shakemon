@@ -9,12 +9,18 @@ import shakemon.pokemon.PokemonDescriptions;
 import shakemon.translation.Translate;
 
 public class Main {
+    private final Config config;
+
+    public Main(Config config) {
+        this.config = config;
+    }
+
     public static void main(String[] args) {
-        new Main().run();
+        new Main(Config.load()).run();
     }
 
     public void run() {
-        var app = Javalin.create().start(7000);
+        var app = Javalin.create().start(config.port());
         var handlers = new HttpHandlers(dependencies());
         handlers.register(app);
     }
@@ -24,4 +30,5 @@ public class Main {
                 PokemonDescriptions.Fake.alwaysReturning("best pokemon"),
                 Translate.Fake.prependingToDescription("Pretend it is Shakesperean: "));
     }
+
 }

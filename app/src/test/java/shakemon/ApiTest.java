@@ -8,40 +8,36 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import static org.assertj.core.api.Assertions.assertThat;
+import static shakemon.Utils.resourceAsString;
 
 public class ApiTest {
-
-    static Main main = new Main();
+    static Config config = Config.load();
+    static Main main = new Main(config);
 
     @BeforeAll
     static void startService() {
         main.run();
+        Unirest.config().defaultBaseUrl("http://localhost:" + config.port());
     }
 
     @Test
     void valid_response_structure() {
-        var response = Unirest.get("http://localhost:7000/pokemon/any")
-                .asJson();
+        var response = Unirest.get("/pokemon/any").asJson();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
 
-        var expectedJsonTemplate = load("api_success_body.json", getClass());
+        var expectedJsonTemplate = resourceAsString("api_success_body.json", getClass());
         assertJsonSameStructure(expectedJsonTemplate, response.getBody());
     }
 
     @Test
     void failure_response_structure() {
-        var response = Unirest.get("http://localhost:7000/pokemon/💩")
+        var response = Unirest.get("/pokemon/💩")
                 .asJson();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST);
 
-        var expectedJsonTemplate = load("api_error_body.json", getClass());
+        var expectedJsonTemplate = resourceAsString("api_error_body.json", getClass());
         assertJsonSameStructure(expectedJsonTemplate, response.getBody());
     }
 
@@ -54,13 +50,4 @@ public class ApiTest {
         }
     }
 
-    static String load(String resourceName, Class<? extends ApiTest> interestedClass) {
-        try {
-            var resource = interestedClass.getResource(resourceName);
-            var path = Paths.get(resource.toURI());
-            return new String(Files.readAllBytes(path));
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
