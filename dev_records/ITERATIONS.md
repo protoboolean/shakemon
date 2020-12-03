@@ -50,3 +50,22 @@ Add logging configuration, add logging of ports and endpoints on start-up.
 ## Iteration 7
 
 Start implementation of PokeAPI.
+
+## Iteration 8
+
+Looking at Pokemon description provided, it seems we want to pull together a
+number of attributes of the pokemon and produce a descriptive prose from them
+(before submitting it for translation).
+But there seems to be no prosaic description of a Pokemon's attribute coming
+from the API and I'm not sure whether to make up something or ask you 
+what the requirements are.
+
+I suspect that you might want this service to navigate through various API urls…
+to test how I would implement that (a number of async requests managed by a 
+thread pool probably).
+
+I'll leave that for the conversation I hope we'll have.
+
+## Iteration 9
+
+Let user choose to load the real or fake PokeAPI via config.
