@@ -7,19 +7,19 @@ import kong.unirest.Unirest;
 import java.net.URL;
 
 public class PokeAPI implements PokemonDescriptions {
-    private final GetRequest getPokemonByName;
+    private final String pokemonByName;
 
     public PokeAPI(URL baseUrl) {
         var url = baseUrl.toString();
         if (!url.endsWith("/")) {
             url = url + "/";
         }
-        getPokemonByName = Unirest.get(url + "pokemon/{name}");
+        pokemonByName = url + "pokemon/{name}";
     }
 
     @Override
     public PokemonDescription pokemonDescription(PokemonName name) throws PokemonDescriptionsException {
-        var response = getPokemonByName.routeParam("name", name.asString())
+        var response = getPokemonByName().routeParam("name", name.asString())
                 .asObject(PokeAPIResponse.class);
         if (!response.isSuccess()) {
             throw PokemonDescriptionsException.because(response);
@@ -30,10 +30,15 @@ public class PokeAPI implements PokemonDescriptions {
     }
 
     JsonNode pokemonJson(PokemonName name) throws PokemonDescriptionsException {
-        var response = getPokemonByName.routeParam("name", name.asString()).asJson();
+        var response = getPokemonByName().routeParam("name", name.asString()).asJson();
         if (!response.isSuccess()) {
             throw PokemonDescriptionsException.because(response);
         }
         return response.getBody();
     }
+
+    private GetRequest getPokemonByName() {
+        return Unirest.get(pokemonByName);
+    }
+
 }
