@@ -1,0 +1,9 @@
+{
+  "endpoint": {
+    "path": "/pokemon/:name"
+  },
+  "error": "not ascii alphabetic",
+  "request": {
+    "path": "/pokemon/%F0%9F%92%A9"
+  }
+}
