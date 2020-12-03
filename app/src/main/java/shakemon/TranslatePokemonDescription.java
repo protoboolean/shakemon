@@ -1,7 +1,7 @@
 package shakemon;
 
 import shakemon.pokemon.PokemonDescriptions;
-import shakemon.pokemon.PokemonDescriptions.PokemonDescriptionsException;
+import shakemon.pokemon.PokemonDescriptionsException;
 import shakemon.pokemon.PokemonName;
 import shakemon.translation.Shakesperean;
 import shakemon.translation.Translate;

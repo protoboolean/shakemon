@@ -4,7 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import shakemon.TranslatePokemonDescription.TranslatePokemonDescriptionException;
 import shakemon.pokemon.PokemonDescriptions;
-import shakemon.pokemon.PokemonDescriptions.PokemonDescriptionsException;
+import shakemon.pokemon.PokemonDescriptionsException;
 import shakemon.pokemon.PokemonName;
 import shakemon.translation.Translate;
 import shakemon.translation.Translate.TranslateException;

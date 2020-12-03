@@ -14,4 +14,9 @@ public class PokemonDescription {
     public String asString() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return asString();
+    }
 }

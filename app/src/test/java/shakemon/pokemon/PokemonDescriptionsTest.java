@@ -1,7 +1,6 @@
 package shakemon.pokemon;
 
 import org.junit.jupiter.api.Test;
-import shakemon.pokemon.PokemonDescriptions.PokemonDescriptionsException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -3,12 +3,6 @@ package shakemon.pokemon;
 public interface PokemonDescriptions {
     PokemonDescription pokemonDescription(PokemonName name) throws PokemonDescriptionsException;
 
-    class PokemonDescriptionsException extends Exception {
-        public PokemonDescriptionsException(String message) {
-            super(message);
-        }
-    }
-
     class Fake implements PokemonDescriptions {
         private final PokemonDescriptions delegate;
 
