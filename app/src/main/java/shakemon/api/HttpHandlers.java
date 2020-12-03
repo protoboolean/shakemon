@@ -6,6 +6,8 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.plugin.json.JavalinJson;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import shakemon.TranslatePokemonDescription;
 import shakemon.TranslatePokemonDescription.TranslatePokemonDescriptionException;
 import shakemon.pokemon.PokemonName;
@@ -13,6 +15,7 @@ import shakemon.pokemon.PokemonName;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class HttpHandlers {
+    private static final Logger LOG = LoggerFactory.getLogger(HttpHandlers.class);
 
     private final TranslatePokemonDescription translatePokemonDescription;
     private final MetricRegistry metricRegistry;
@@ -41,6 +44,7 @@ public class HttpHandlers {
                 timerCtx.stop();
             }
         }));
+        LOG.info("GET {}", path);
     }
 
     public void translatePokemonHandler(@NotNull Context ctx) throws TranslatePokemonDescriptionException {

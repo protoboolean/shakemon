@@ -16,7 +16,8 @@ class Config {
     }
 
     int adminPort() {
-        return Integer.parseInt(properties.get("shakemon.admin_port"));
+        var adminPort = properties.get("shakemon.admin_port");
+        return Integer.parseInt(adminPort);
     }
 
     static Config load() {

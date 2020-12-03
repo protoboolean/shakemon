@@ -10,6 +10,8 @@ import io.javalin.Javalin;
 import io.javalin.plugin.json.JavalinJackson;
 import io.javalin.plugin.json.JavalinJson;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import shakemon.api.HttpHandlers;
 import shakemon.pokemon.PokemonDescriptions;
 import shakemon.translation.Translate;
@@ -17,6 +19,9 @@ import shakemon.translation.Translate;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+
+    private static final Logger LOG = LoggerFactory.getLogger(Main.class);
+
     final MetricRegistry metrics = new MetricRegistry();
 
     private final Config config;
@@ -31,15 +36,27 @@ public class Main {
 
     public void run() {
         JavalinJackson.defaultObjectMapper().registerModule(metricsToJsonSerializationConfig());
-        var admin = Javalin.create().start(config.adminPort());
+        adminServer();
+        appServer();
+    }
 
-        admin.get("/metrics", (ctx) -> {
+    private void appServer() {
+        var port = config.port();
+        var app = Javalin.create().start(port);
+        LOG.info("App listening on port: {}", port);
+        new HttpHandlers(dependencies(), metrics).register(app);
+    }
+
+    private void adminServer() {
+        var port = config.adminPort();
+        LOG.info("Admin Service listening on port: {}", port);
+        var admin = Javalin.create().start(port);
+        var path = "/metrics";
+        admin.get(path, (ctx) -> {
             ctx.contentType(MediaType.JSON_UTF_8.type());
             ctx.result(JavalinJson.toJson(metrics));
         });
-
-        var app = Javalin.create().start(config.port());
-        new HttpHandlers(dependencies(), metrics).register(app);
+        LOG.info("GET {}", path);
     }
 
     @NotNull
