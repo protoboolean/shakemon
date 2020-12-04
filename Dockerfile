@@ -13,4 +13,6 @@ RUN unzip app.zip
 RUN mv app/* .
 RUN rm app.zip
 RUN rmdir app
+RUN touch config.properties
+EXPOSE 7000 7001
 ENTRYPOINT ["bin/app"]
