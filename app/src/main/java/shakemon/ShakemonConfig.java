@@ -2,6 +2,8 @@ package shakemon;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,6 +17,8 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static shakemon.Utils.propertiesAsMap;
 
 public class ShakemonConfig {
+    private static final Logger LOG = LoggerFactory.getLogger(ShakemonConfig.class);
+
     private static final String FAKE_FLAG = "fake";
 
     private final Map<String, String> properties;
@@ -49,7 +53,13 @@ public class ShakemonConfig {
     }
 
     public static ShakemonConfig load() {
-        return new ShakemonConfig(properties());
+        var shakemonConfig = new ShakemonConfig(properties());
+        shakemonConfig.logProperties();
+        return shakemonConfig;
+    }
+
+    private void logProperties() {
+        properties.forEach((k, v) -> LOG.info("{}={}", k, v));
     }
 
     public static ShakemonConfig loadWithFakes() {
