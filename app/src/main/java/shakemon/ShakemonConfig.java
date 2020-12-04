@@ -3,6 +3,7 @@ package shakemon;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.MalformedURLException;
@@ -58,7 +59,11 @@ public class ShakemonConfig {
     }
 
     private static Map<String, String> properties() {
-        return propertiesAsMap(configFileReader());
+        try (var reader = configFileReader()) {
+            return propertiesAsMap(reader);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static Reader configFileReader() {

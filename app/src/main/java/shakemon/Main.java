@@ -16,7 +16,10 @@ import shakemon.pokemon.PokeAPI;
 import shakemon.pokemon.PokemonDescriptions;
 import shakemon.translation.Translate;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+
+import static java.util.stream.Collectors.toList;
 
 public class Main {
 
@@ -31,6 +34,12 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        var argList = Arrays.stream(args).map(s -> s.trim().toLowerCase()).collect(toList());
+        if (argList.contains("print_default_config")) {
+            System.out.println("# EMBEDDED config.properties file");
+            System.out.println(Utils.resourceAsString("config.properties", Main.class));
+            System.exit(0);
+        }
         new Main(ShakemonConfig.load()).run();
     }
 
