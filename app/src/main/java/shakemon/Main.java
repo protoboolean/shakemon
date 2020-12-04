@@ -34,13 +34,19 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        var argList = Arrays.stream(args).map(s -> s.trim().toLowerCase()).collect(toList());
-        if (argList.contains("print_default_config")) {
-            System.out.println("# EMBEDDED config.properties file");
-            System.out.println(Utils.resourceAsString("config.properties", Main.class));
-            System.exit(0);
+        if (args.length > 0) {
+            var argList = Arrays.stream(args).map(s -> s.trim().toLowerCase()).collect(toList());
+            if ("print_default_config".equals(argList.get(0))) {
+                System.out.println("# EMBEDDED config.properties file");
+                System.out.println(Utils.resourceAsString("config.properties", Main.class));
+                System.exit(0);
+            } else {
+                System.err.printf("Invalid argument: %s%n%n", argList.get(0));
+                System.exit(1);
+            }
+        } else {
+            new Main(ShakemonConfig.load()).run();
         }
-        new Main(ShakemonConfig.load()).run();
     }
 
     public void run() {
