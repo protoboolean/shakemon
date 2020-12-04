@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @EnabledIfEnvironmentVariable(named = "SHAKEMON_ALLOW_NETWORK_IO_TEST", matches = "true",
         disabledReason = "Test depends on external services. Used for development only ATM.")
-@EnabledIfEnvironmentVariable(named = "SHAKEMON_CONFIG", matches = "file://.*",
+@EnabledIfEnvironmentVariable(named = "SHAKEMON_CONFIG", matches = ".*",
         disabledReason = "Test depends on external services. Used for development only ATM.")
 class PokeAPITest {
     static ShakemonConfig config = ShakemonConfig.load();
