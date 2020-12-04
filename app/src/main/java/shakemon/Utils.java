@@ -2,12 +2,11 @@ package shakemon;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URI;
+import java.io.*;
 import java.util.Map;
 import java.util.Properties;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 public class Utils {
     public static String resourceAsString(String resourceName, Class<?> interestedClass) {
@@ -31,10 +30,13 @@ public class Utils {
     }
 
     @NotNull
-    public static Reader uriReader(String path) {
+    public static Reader fileReader(String path) {
         try {
-            var url = URI.create(path).toURL();
-            return new InputStreamReader(url.openStream());
+            var configFile = new File(path);
+            checkArgument(configFile.exists(), "%s does not exists", path);
+            checkArgument(configFile.isFile(), "%s not a regular file", path);
+            checkArgument(configFile.canRead(), "%s not readable", path);
+            return new InputStreamReader(new FileInputStream(configFile));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

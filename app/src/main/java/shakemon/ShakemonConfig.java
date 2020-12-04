@@ -77,14 +77,18 @@ public class ShakemonConfig {
     }
 
     private static Reader configFileReader() {
-        var configUri = StringUtils.trimToNull(System.getenv("SHAKEMON_CONFIG"));
-        return Optional.ofNullable(configUri)
-                .map(Utils::uriReader)
+        var configPath = StringUtils.trimToNull(System.getenv("SHAKEMON_CONFIG"));
+        return Optional.ofNullable(configPath)
+                .map(path -> {
+                    LOG.info("Loading custom config {}", configPath);
+                    return Utils.fileReader(path);
+                })
                 .orElseGet(ShakemonConfig::defaultConfig);
     }
 
     @NotNull
     private static InputStreamReader defaultConfig() {
+        LOG.info("Loading embedded config");
         var inputStream = Main.class.getResourceAsStream("config.properties");
         return new InputStreamReader(inputStream);
     }
