@@ -1,6 +1,7 @@
 # Shakemon
 
-A shakesperian translator for your pokemon description
+See notes in `dev_records/00_INITIAL_THOUGHTS.md` and sibling files for an exposition of my thinking before and during
+the development.
 
 ## Config
 
@@ -15,7 +16,8 @@ To connect to the real endpoint you MUST create a config file and
 set the SHAKEMON_CONFIG environment variable with the absolute file path. \
 This is meant to demonstrate a "config injection" technique.**
 
-**NOTE: the translation endpoint is only implemented as a fake.**
+**WHAT'S UNFINISHED: the translation endpoint is only implemented as a fake. The pokemon description built from the
+ PokeAPI is nowhere near the example presented in the exercise.**
 
 ## Build and Run
 

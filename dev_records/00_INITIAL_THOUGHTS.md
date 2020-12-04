@@ -1,5 +1,27 @@
 # Shakemon Requirements and Design
 
+The business-logic boils down to composing bits of information and delegating.
+I guess the interesting part is the implementation of the non-functional requirements.
+
+I'll develop the service as if it should be going live… step by step.
+
+## NOTE FOR THE REVIEWER
+
+I've implemented the service following a TDD approach and
+"hexagonal architecture" (i.e. core-domain decoupled from I/O implementations and concerns).\
+You'll notice I've not used any framework (for dependency-injection and other concerns). I tried instead to rely on
+ the language features only.\
+This is how I've been working for the past few years: minimalist approach. I'm sure there are frameworks out there that
+can be leveraged to implement this kind of functionality quicker (Spring, Micronaut, etc.) but in reality I'm not
+ familiar with them for the reason above.\
+Java is also not very ergonomic but it's still the one I'm most familiar with.\
+So, you'll see a lot of commits where I implement the service bit-by-bit, starting from the core-domain, to
+   the fake apis, to its own end-point, then metrics, then real-dependencies, etc.\
+
+I managed to pull together a Dockerfile. I know the ropes of it but it's the first time I configure it to build a
+ Gradle project, and I didn't manage to find a convincing way to cache the dependencies in the multi-stage sequence, 
+ so if you rebuild the image it will download everything again. Sorry about that.
+
 ## Functional Requirements
 
 Shakemon returns a translation in Shakesperean of a given pokemon description.
