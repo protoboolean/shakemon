@@ -15,8 +15,10 @@ This is how I've been working for the past few years: minimalist approach. I'm s
 can be leveraged to implement this kind of functionality quicker (Spring, Micronaut, etc.) but in reality I'm not
  familiar with them for the reason above.\
 Java is also not very ergonomic but it's still the one I'm most familiar with.\
-So, you'll see a lot of commits where I implement the service bit-by-bit, starting from the core-domain, to
+So, you'll see a lot of commits where I implement the service bit-by-bit (re-inventing the wheel surely), starting
+ from the core-domain, to
    the fake apis, to its own end-point, then metrics, then real-dependencies, etc.\
+I hope you'll find it informative and significant for the role I'm applying to.
 
 I managed to pull together a Dockerfile. I know the ropes of it but it's the first time I configure it to build a
  Gradle project, and I didn't manage to find a convincing way to cache the dependencies in the multi-stage sequence, 
