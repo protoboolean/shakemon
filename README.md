@@ -48,7 +48,7 @@ I assume you already have `git` installed and you've cloned and moved in the rep
     [main] INFO shakemon.Main - App listening on port: 7000
     [main] INFO shakemon.api.AppEndpoints - GET /pokemon/:name
 
-Connect to http://localhost:7000/pokemon/ditto for a JSON with some metrics.
+Connect to http://localhost:7000/pokemon/ditto for ditto's (possibly fake) description).
 
 The fake endpoints will output something like:
 ```json
@@ -98,7 +98,7 @@ NOTE: tested on Mac, should work seamlessly on Linux and probably on Windows
     
     $ gradle test
 
-Should you want to run tests depending on network I/O please set in your environment:
+Should you want to run tests depending on network I/O please set in your **testing** environment:
     
     SHAKEMON_ALLOW_NETWORK_IO_TEST=true
     SHAKEMON_CONFIG=/path/to/config/with/real_api
