@@ -3,6 +3,9 @@
 See notes in `dev_records/00_INITIAL_THOUGHTS.md` and sibling files for an exposition of my thinking before and during
 the development.
 
+_Unrelated to this project but relevant for the application, you can see some
+Rust code I've written here: [Triad](https://gitlab.com/protoboolean/triad)._
+
 ## Config
 
 See `app/src/main/resources/shakemon/config.properties` for complete configuration options with safe defaults.
